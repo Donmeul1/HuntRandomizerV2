@@ -82,9 +82,11 @@ namespace HuntRandomizer.Models
             if (String.IsNullOrEmpty(info.Description))
                 throw new ArgumentException("Description cannot be empty.", nameof(info));
                 
+            if (info.Cost < 0 || info.Cost > 1250)
+                throw new ArgumentOutOfRangeException(nameof(info), "Cost must be between 0 and 1250.");
 
-            if (info.Cost < 0)
-                throw new ArgumentOutOfRangeException(nameof(info), "Cost cannot be negative.");
+            if (meleeInfo.MeleeDamageHeavy < 0 || meleeInfo.MeleeDamageLight < 0)
+                throw new ArgumentOutOfRangeException(nameof(meleeInfo), "Melee damage can't be negative.");
         }
 
         #endregion
