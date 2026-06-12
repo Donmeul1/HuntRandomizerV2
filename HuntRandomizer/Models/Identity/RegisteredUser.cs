@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace HuntRandomizer.Models
+namespace HuntRandomizer.Models.Identity
 {
     public class RegisteredUser : IdentityUser
     {

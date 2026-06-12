@@ -1,4 +1,5 @@
 ﻿using HuntRandomizer.Models;
+using HuntRandomizer.Models.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
