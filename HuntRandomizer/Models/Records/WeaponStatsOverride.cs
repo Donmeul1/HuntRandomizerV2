@@ -2,22 +2,22 @@
 {
     public sealed record WeaponStatsOverride
     {
-        public int? Damage { get; init; }
+        public int? DamageOverride { get; init; }
 
-        public int? DropRange { get; init; }
+        public int? DropRangeOverride { get; init; }
 
-        public int? RateOfFire { get; init; }
+        public int? RateOfFireOverride { get; init; }
 
-        public float? CycleTime { get; init; }
+        public float? CycleTimeOverride { get; init; }
 
-        public float? Spread { get; init; }
+        public float? SpreadOverride { get; init; }
 
-        public float? Sway { get; init; }
+        public float? SwayOverride { get; init; }
 
-        public float? Recoil { get; init; }
+        public float? RecoilOverride { get; init; }
 
-        public float? ReloadSpeed { get; init; }
+        public float? ReloadSpeedOverride { get; init; }
 
-        public int? MuzzleVelocity { get; init; }
+        public int? MuzzleVelocityOverride { get; init; }
     }
 }

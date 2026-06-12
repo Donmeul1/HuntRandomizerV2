@@ -37,25 +37,22 @@ namespace HuntRandomizer.Data
 
             modelBuilder.Entity<Weapon>(weapon =>
             {
-                weapon.HasMany(r => r.AmmoOptions)
-                    .WithOne(r => r.Weapon)
-                    .HasForeignKey(k => k.WeaponId);
-
                 weapon.HasOne(r => r.WeaponFamily)
                     .WithMany(r => r.WeaponsInFamily)
-                    .HasForeignKey(k => k.WeaponFamilyId);
+                    .HasForeignKey(k => k.WeaponFamilyId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 weapon.OwnsOne(x => x.Stats, stats =>
                 {
-                    stats.Property(p => p.Damage).HasColumnName("Damage");
-                    stats.Property(p => p.DropRange).HasColumnName("DropRange");
-                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFire");
-                    stats.Property(p => p.CycleTime).HasColumnName("CycleTime");
-                    stats.Property(p => p.Spread).HasColumnName("Spread");
-                    stats.Property(p => p.Sway).HasColumnName("Sway");
-                    stats.Property(p => p.Recoil).HasColumnName("Recoil");
-                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeed");
-                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocity");
+                    stats.Property(p => p.Damage).HasColumnName("DamageOverride");
+                    stats.Property(p => p.DropRange).HasColumnName("DropRangeOverride");
+                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFireOverride");
+                    stats.Property(p => p.CycleTime).HasColumnName("CycleTimeOverride");
+                    stats.Property(p => p.Spread).HasColumnName("SpreadOverride");
+                    stats.Property(p => p.Sway).HasColumnName("SwayOverride");
+                    stats.Property(p => p.Recoil).HasColumnName("RecoilOverride");
+                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeedOverride");
+                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocityOverride");
                 });
 
                 weapon.OwnsOne(x => x.AmmoCapacity, capacity =>
@@ -71,45 +68,40 @@ namespace HuntRandomizer.Data
             {
                 ammoOption.HasOne(r => r.Weapon)
                     .WithMany(r => r.AmmoOptions)
-                    .HasForeignKey(k => k.WeaponId);
+                    .HasForeignKey(k => k.WeaponId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 ammoOption.HasOne(r => r.AmmoType)
                     .WithMany()
-                    .HasForeignKey(k => k.AmmoTypeId);
+                    .HasForeignKey(k => k.AmmoTypeId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 ammoOption.HasIndex(i => new { i.WeaponId, i.AmmoTypeId }).IsUnique();
 
                 ammoOption.OwnsOne(x => x.StatsOverride, stats =>
                 {
-                    stats.Property(p => p.Damage).HasColumnName("Damage");
-                    stats.Property(p => p.DropRange).HasColumnName("DropRange");
-                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFire");
-                    stats.Property(p => p.CycleTime).HasColumnName("CycleTime");
-                    stats.Property(p => p.Spread).HasColumnName("Spread");
-                    stats.Property(p => p.Sway).HasColumnName("Sway");
-                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeed");
-                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocity");
+                    stats.Property(p => p.DamageOverride).HasColumnName("DamageOverride");
+                    stats.Property(p => p.DropRangeOverride).HasColumnName("DropRangeOverride");
+                    stats.Property(p => p.RateOfFireOverride).HasColumnName("RateOfFireOverride");
+                    stats.Property(p => p.CycleTimeOverride).HasColumnName("CycleTimeOverride");
+                    stats.Property(p => p.SpreadOverride).HasColumnName("SpreadOverride");
+                    stats.Property(p => p.SwayOverride).HasColumnName("SwayOverride");
+                    stats.Property(p => p.ReloadSpeedOverride).HasColumnName("ReloadSpeedOverride");
+                    stats.Property(p => p.MuzzleVelocityOverride).HasColumnName("MuzzleVelocityOverride");
                 });
-            });
-
-            modelBuilder.Entity<WeaponFamily>(weaponFamily =>
-            {
-                weaponFamily.HasMany(r => r.WeaponsInFamily)
-                    .WithOne(r => r.WeaponFamily)
-                    .HasForeignKey(k => k.WeaponFamilyId);
             });
         }
 
         public override int SaveChanges()
         {
-            this.ApplyAuditData();
+            //this.ApplyAuditData();
 
             return base.SaveChanges();
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            this.ApplyAuditData();
+            //this.ApplyAuditData();
 
             return await base.SaveChangesAsync(cancellationToken);
         }

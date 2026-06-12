@@ -5,7 +5,7 @@
         public WeaponStats(int damage, int dropRange, int rateOfFire, float cycleTime, float spread, float sway, float recoil, float reloadSpeed, int velocity)
         {
             if (damage < 0)
-                throw new ArgumentOutOfRangeException(nameof(damage), "Damage can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(damage), "DamageOverride can not be negative.");
 
             if (dropRange < 0)
                 throw new ArgumentOutOfRangeException(nameof(dropRange), "Drop range can not be negative.");
@@ -17,13 +17,13 @@
                 throw new ArgumentOutOfRangeException(nameof(cycleTime), "Cycle time can not be negative.");
 
             if (spread < 0)
-                throw new ArgumentOutOfRangeException(nameof(spread), "Spread can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(spread), "SpreadOverride can not be negative.");
 
             if(sway < 0)
-                throw new ArgumentOutOfRangeException(nameof(sway), "Sway can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(sway), "SwayOverride can not be negative.");
 
             if (recoil < 0)
-                throw new ArgumentOutOfRangeException(nameof(recoil), "Recoil can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(recoil), "RecoilOverride can not be negative.");
 
             if (reloadSpeed < 0)
                 throw new ArgumentOutOfRangeException(nameof(reloadSpeed), "Reload speed can not be negative.");
@@ -72,15 +72,15 @@
 
             return this with
             {
-                Damage = statsOverride.Damage ?? Damage,
-                DropRange = statsOverride.DropRange ?? DropRange,
-                RateOfFire = statsOverride.RateOfFire ?? RateOfFire,
-                CycleTime = statsOverride.CycleTime ?? CycleTime,
-                Spread = statsOverride.Spread ?? Spread,
-                Sway = statsOverride.Sway ?? Sway,
-                Recoil = statsOverride.Recoil ?? Recoil,
-                ReloadSpeed = statsOverride.ReloadSpeed ?? ReloadSpeed,
-                MuzzleVelocity = statsOverride.MuzzleVelocity ?? MuzzleVelocity
+                Damage = statsOverride.DamageOverride ?? Damage,
+                DropRange = statsOverride.DropRangeOverride ?? DropRange,
+                RateOfFire = statsOverride.RateOfFireOverride ?? RateOfFire,
+                CycleTime = statsOverride.CycleTimeOverride ?? CycleTime,
+                Spread = statsOverride.SpreadOverride ?? Spread,
+                Sway = statsOverride.SwayOverride ?? Sway,
+                Recoil = statsOverride.RecoilOverride ?? Recoil,
+                ReloadSpeed = statsOverride.ReloadSpeedOverride ?? ReloadSpeed,
+                MuzzleVelocity = statsOverride.MuzzleVelocityOverride ?? MuzzleVelocity
             };
         }
     }
