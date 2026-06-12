@@ -44,15 +44,15 @@ namespace HuntRandomizer.Data
 
                 weapon.OwnsOne(x => x.Stats, stats =>
                 {
-                    stats.Property(p => p.Damage).HasColumnName("DamageOverride");
-                    stats.Property(p => p.DropRange).HasColumnName("DropRangeOverride");
-                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFireOverride");
-                    stats.Property(p => p.CycleTime).HasColumnName("CycleTimeOverride");
-                    stats.Property(p => p.Spread).HasColumnName("SpreadOverride");
-                    stats.Property(p => p.Sway).HasColumnName("SwayOverride");
-                    stats.Property(p => p.Recoil).HasColumnName("RecoilOverride");
-                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeedOverride");
-                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocityOverride");
+                    stats.Property(p => p.Damage).HasColumnName("Damage");
+                    stats.Property(p => p.DropRange).HasColumnName("DropRange");
+                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFire");
+                    stats.Property(p => p.CycleTime).HasColumnName("CycleTime");
+                    stats.Property(p => p.Spread).HasColumnName("Spread");
+                    stats.Property(p => p.Sway).HasColumnName("Sway");
+                    stats.Property(p => p.Recoil).HasColumnName("Recoil");
+                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeed");
+                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocity");
                 });
 
                 weapon.OwnsOne(x => x.AmmoCapacity, capacity =>
@@ -86,6 +86,7 @@ namespace HuntRandomizer.Data
                     stats.Property(p => p.CycleTimeOverride).HasColumnName("CycleTimeOverride");
                     stats.Property(p => p.SpreadOverride).HasColumnName("SpreadOverride");
                     stats.Property(p => p.SwayOverride).HasColumnName("SwayOverride");
+                    stats.Property(p => p.RecoilOverride).HasColumnName("RecoilOverride");
                     stats.Property(p => p.ReloadSpeedOverride).HasColumnName("ReloadSpeedOverride");
                     stats.Property(p => p.MuzzleVelocityOverride).HasColumnName("MuzzleVelocityOverride");
                 });

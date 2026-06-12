@@ -5,7 +5,7 @@
         public WeaponStats(int damage, int dropRange, int rateOfFire, float cycleTime, float spread, float sway, float recoil, float reloadSpeed, int velocity)
         {
             if (damage < 0)
-                throw new ArgumentOutOfRangeException(nameof(damage), "DamageOverride can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(damage), "Damage can not be negative.");
 
             if (dropRange < 0)
                 throw new ArgumentOutOfRangeException(nameof(dropRange), "Drop range can not be negative.");
@@ -17,13 +17,13 @@
                 throw new ArgumentOutOfRangeException(nameof(cycleTime), "Cycle time can not be negative.");
 
             if (spread < 0)
-                throw new ArgumentOutOfRangeException(nameof(spread), "SpreadOverride can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(spread), "Spread can not be negative.");
 
             if(sway < 0)
-                throw new ArgumentOutOfRangeException(nameof(sway), "SwayOverride can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(sway), "Sway can not be negative.");
 
             if (recoil < 0)
-                throw new ArgumentOutOfRangeException(nameof(recoil), "RecoilOverride can not be negative.");
+                throw new ArgumentOutOfRangeException(nameof(recoil), "Recoil can not be negative.");
 
             if (reloadSpeed < 0)
                 throw new ArgumentOutOfRangeException(nameof(reloadSpeed), "Reload speed can not be negative.");
