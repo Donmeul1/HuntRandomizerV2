@@ -14,6 +14,8 @@ namespace HuntRandomizer.Models
         
         public SlotSize SlotSize { get; protected set; }
 
+        public ICollection<AmmoOption> AmmoOptions { get; protected set; } = new List<AmmoOption>();
+
 
     }
 
