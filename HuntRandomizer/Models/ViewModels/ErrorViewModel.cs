@@ -1,4 +1,4 @@
-namespace HuntRandomizer.Models
+namespace HuntRandomizer.Models.ViewModels
 {
     public class ErrorViewModel
     {
