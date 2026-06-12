@@ -12,7 +12,9 @@ namespace HuntRandomizer.Models
 
         }
         
-        public SlotSize SlotSize { get; set; }
+        public SlotSize SlotSize { get; protected set; }
+
+        public int SpareRounds { get; protected set; }
     }
 
     public enum SlotSize : byte
