@@ -77,30 +77,29 @@ namespace HuntRandomizer.Models
             ArgumentNullException.ThrowIfNull(meleeInfo);
 
             if (String.IsNullOrEmpty(info.Name))
-                throw new ArgumentException("Name cannot be empty.", nameof(info.Name));
+                throw new ArgumentException("Name cannot be empty.", nameof(info));
 
             if (String.IsNullOrEmpty(info.Description))
-                throw new ArgumentException("Description cannot be empty.", nameof(info.Description));
+                throw new ArgumentException("Description cannot be empty.", nameof(info));
                 
 
             if (info.Cost < 0)
-                throw new ArgumentOutOfRangeException("Cost cannot be negative.", nameof(info.Cost));
+                throw new ArgumentOutOfRangeException(nameof(info), "Cost cannot be negative.");
         }
 
         #endregion
     }
-}
+    public enum ItemType : byte
+    {
+        Weapon = 1,
+        Tool = 2,
+        Consumable = 3
+    }
 
-public enum ItemType : byte
-{
-    Weapon = 1,
-    Tool = 2,
-    Consumable = 3
-}
-
-public enum MeleeType : byte
-{
-    Blunt = 1, 
-    Piercing = 2,
-    Rending = 3
+    public enum MeleeType : byte
+    {
+        Blunt = 1,
+        Piercing = 2,
+        Rending = 3
+    }
 }
