@@ -4,8 +4,6 @@ namespace HuntRandomizer.Models.Records
 {
     public sealed record WeaponStats
     {
-        protected WeaponStats() { }
-
         public WeaponStats(int damage, int dropRange, int rateOfFire, float cycleTime, float spread, float sway, float recoil, float reloadSpeed, int velocity)
         {
             if (damage < 0)

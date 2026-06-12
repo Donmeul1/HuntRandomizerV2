@@ -46,13 +46,13 @@ namespace HuntRandomizer.Models
 
         public bool Deleted { get; protected set; }
 
-        public string? DeletedBy { get; protected set; } //populate only with user id when deleted.
+        public string? DeletedBy { get; internal set; } //populate only with user id when deleted.
 
-        public DateTime? CreatedAt { get; protected set; }
+        public DateTime? CreatedAt { get; internal set; }
 
-        public DateTime? ChangedAt { get; protected set; }
+        public DateTime? ChangedAt { get; internal set; }
 
-        public DateTime? DeletedAt { get; protected set; }
+        public DateTime? DeletedAt { get; internal set; }
 
         #endregion
 
