@@ -1,6 +1,4 @@
-﻿using Microsoft.Build.Framework;
-
-namespace HuntRandomizer.Models.Records
+﻿namespace HuntRandomizer.Models.Records
 {
     public sealed record WeaponStats
     {

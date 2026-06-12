@@ -1,4 +1,5 @@
 ﻿using HuntRandomizer.Models.Records;
+using Microsoft.EntityFrameworkCore;
 
 namespace HuntRandomizer.Models
 {
@@ -15,9 +16,13 @@ namespace HuntRandomizer.Models
             SlotSize = weaponInfo.SlotSize;
             AmmoClass = weaponInfo.AmmoClass;
             AmmoCapacity = weaponInfo.Capacity;
+            WeaponFamily = weaponInfo.WeaponFamily;
 
             AmmoOptions = new List<AmmoOption>();
         }
+
+        public int WeaponFamilyId { get; protected set; }
+        public WeaponFamily WeaponFamily { get; protected set; } = null!; 
 
         public WeaponStats Stats { get; protected set; } = null!;
 

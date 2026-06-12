@@ -4,11 +4,11 @@
     {
         public AmmoCapacity(int defaultCapacity, int maxCapacity, int spareRounds)
         {
-            if (defaultCapacity <= 1 || defaultCapacity > 20)
-                throw new ArgumentOutOfRangeException(nameof(defaultCapacity), "Base ammo capacity must be between 0 and 20.");
+            if (defaultCapacity < 1 || defaultCapacity > 20)
+                throw new ArgumentOutOfRangeException(nameof(defaultCapacity), "Base ammo capacity must be between 1 and 20.");
 
-            if (maxCapacity <= 1 || maxCapacity > 20)
-                throw new ArgumentOutOfRangeException(nameof(maxCapacity), "Max ammo capacity must be between 0 and 20.");
+            if (maxCapacity < 1 || maxCapacity > 20)
+                throw new ArgumentOutOfRangeException(nameof(maxCapacity), "Max ammo capacity must be between 1 and 20.");
 
             if (maxCapacity < defaultCapacity)
                 throw new ArgumentOutOfRangeException(nameof(maxCapacity), "Maximum capacity can not be lower than default capacty.");

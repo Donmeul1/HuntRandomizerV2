@@ -1,6 +1,5 @@
 ﻿using HuntRandomizer.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace HuntRandomizer.Data
@@ -15,20 +14,90 @@ namespace HuntRandomizer.Data
 
         public DbSet<WeaponFamily> WeaponFamilies { get; set; }
 
-        public DbSet<AmmoType> SpecialAmmunitions { get; set; }
+        public DbSet<AmmoType> AmmoTypes { get; set; }
+
+        public DbSet<AmmoOption> AmmoOptions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItemBase>().UseTpcMappingStrategy();
+            base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ItemBase>().OwnsOne(i => i.StaminaCost, stamina =>
+            modelBuilder.Entity<ItemBase>(itemBase =>
             {
-                stamina.Property(s => s.StaminaCostLight).HasColumnName("StaminaCostLight");
-                stamina.Property(s => s.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
+                itemBase.UseTpcMappingStrategy();
+
+                itemBase.OwnsOne(x => x.StaminaCost, stamina =>
+                {
+                    stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
+                    stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
+                });
+
             });
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Weapon>(weapon =>
+            {
+                weapon.HasMany(r => r.AmmoOptions)
+                    .WithOne(r => r.Weapon)
+                    .HasForeignKey(k => k.WeaponId);
+
+                weapon.HasOne(r => r.WeaponFamily)
+                    .WithMany(r => r.WeaponsInFamily)
+                    .HasForeignKey(k => k.WeaponFamilyId);
+
+                weapon.OwnsOne(x => x.Stats, stats =>
+                {
+                    stats.Property(p => p.Damage).HasColumnName("Damage");
+                    stats.Property(p => p.DropRange).HasColumnName("DropRange");
+                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFire");
+                    stats.Property(p => p.CycleTime).HasColumnName("CycleTime");
+                    stats.Property(p => p.Spread).HasColumnName("Spread");
+                    stats.Property(p => p.Sway).HasColumnName("Sway");
+                    stats.Property(p => p.Recoil).HasColumnName("Recoil");
+                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeed");
+                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocity");
+                });
+
+                weapon.OwnsOne(x => x.AmmoCapacity, capacity =>
+                {
+                    capacity.Property(p => p.DefaultCapacity).HasColumnName("DefaultCapacity");
+                    capacity.Property(p => p.MaxCapacity).HasColumnName("MaxCapacity");
+                    capacity.Property(p => p.SpareRounds).HasColumnName("SpareRounds");
+                });
+
+            });
+
+            modelBuilder.Entity<AmmoOption>(ammoOption =>
+            {
+                ammoOption.HasOne(r => r.Weapon)
+                    .WithMany(r => r.AmmoOptions)
+                    .HasForeignKey(k => k.WeaponId);
+
+                ammoOption.HasOne(r => r.AmmoType)
+                    .WithMany()
+                    .HasForeignKey(k => k.AmmoTypeId);
+
+                ammoOption.HasIndex(i => new { i.WeaponId, i.AmmoTypeId }).IsUnique();
+
+                ammoOption.OwnsOne(x => x.StatsOverride, stats =>
+                {
+                    stats.Property(p => p.Damage).HasColumnName("Damage");
+                    stats.Property(p => p.DropRange).HasColumnName("DropRange");
+                    stats.Property(p => p.RateOfFire).HasColumnName("RateOfFire");
+                    stats.Property(p => p.CycleTime).HasColumnName("CycleTime");
+                    stats.Property(p => p.Spread).HasColumnName("Spread");
+                    stats.Property(p => p.Sway).HasColumnName("Sway");
+                    stats.Property(p => p.ReloadSpeed).HasColumnName("ReloadSpeed");
+                    stats.Property(p => p.MuzzleVelocity).HasColumnName("MuzzleVelocity");
+                });
+            });
+
+            modelBuilder.Entity<WeaponFamily>(weaponFamily =>
+            {
+                weaponFamily.HasMany(r => r.WeaponsInFamily)
+                    .WithOne(r => r.WeaponFamily)
+                    .HasForeignKey(k => k.WeaponFamilyId);
+            });
         }
 
         public override int SaveChanges()
