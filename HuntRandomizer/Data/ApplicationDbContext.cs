@@ -7,11 +7,11 @@ namespace HuntRandomizer.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<RegisteredUser>(options)
     {
-        public DbSet<Tool> Tools { get; set; }
+        //public DbSet<Tool> Tools { get; set; }
 
         public DbSet<Weapon> Weapons { get; set; }
 
-        public DbSet<Consumable> Consumables { get; set; }
+        //public DbSet<Consumable> Consumables { get; set; }
 
         public DbSet<WeaponFamily> WeaponFamilies { get; set; }
 
@@ -24,17 +24,7 @@ namespace HuntRandomizer.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ItemBase>(itemBase =>
-            {
-                itemBase.UseTpcMappingStrategy();
-
-                itemBase.OwnsOne(x => x.StaminaCost, stamina =>
-                {
-                    stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
-                    stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
-                });
-
-            });
+            modelBuilder.Entity<ItemBase>().UseTpcMappingStrategy();
 
             modelBuilder.Entity<Weapon>(weapon =>
             {
@@ -42,6 +32,12 @@ namespace HuntRandomizer.Data
                     .WithMany(r => r.WeaponsInFamily)
                     .HasForeignKey(k => k.WeaponFamilyId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+                weapon.OwnsOne(x => x.StaminaCost, stamina =>
+                {
+                    stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
+                    stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
+                });
 
                 weapon.OwnsOne(x => x.Stats, stats =>
                 {

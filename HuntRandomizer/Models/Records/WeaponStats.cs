@@ -2,7 +2,7 @@
 {
     public sealed record WeaponStats
     {
-        public WeaponStats(int damage, int dropRange, int rateOfFire, float cycleTime, float spread, float sway, float recoil, float reloadSpeed, int velocity)
+        public WeaponStats(int damage, int dropRange, int rateOfFire, float cycleTime, float spread, float sway, float recoil, float reloadSpeed, int muzzleVelocity)
         {
             if (damage < 0)
                 throw new ArgumentOutOfRangeException(nameof(damage), "Damage can not be negative.");
@@ -28,8 +28,8 @@
             if (reloadSpeed < 0)
                 throw new ArgumentOutOfRangeException(nameof(reloadSpeed), "Reload speed can not be negative.");
 
-            if (velocity < 0)
-                throw new ArgumentOutOfRangeException(nameof(velocity), "Muzzle velocity can not be negative.");
+            if (muzzleVelocity < 0)
+                throw new ArgumentOutOfRangeException(nameof(muzzleVelocity), "Muzzle velocity can not be negative.");
 
             Damage = damage;
             DropRange = dropRange;
@@ -39,10 +39,8 @@
             Sway = sway;
             Recoil = recoil;
             ReloadSpeed = reloadSpeed;
-            MuzzleVelocity = velocity; 
-
+            MuzzleVelocity = muzzleVelocity; 
         }
-
 
         public int Damage { get; init; }
 
