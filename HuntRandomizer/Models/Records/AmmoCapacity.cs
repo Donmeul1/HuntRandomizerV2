@@ -3,27 +3,35 @@
     public sealed record AmmoCapacity
     {
         protected AmmoCapacity() { }
-        public AmmoCapacity(int @base, int max, int spare)
+        public AmmoCapacity(int defaultCapacity, int maxCapacity, int spareRounds)
         {
-            if (@base <= 0 || @base > 20)
-                throw new ArgumentOutOfRangeException(nameof(@base), "Base ammo capacity must be between 0 and 20.");
+            if (defaultCapacity <= 1 || defaultCapacity > 20)
+                throw new ArgumentOutOfRangeException(nameof(defaultCapacity), "Base ammo capacity must be between 1 and 20.");
 
-            if (max <= 0 || max > 20)
-                throw new ArgumentOutOfRangeException(nameof(max), "Max ammo capacity must be between 0 and 20.");
+            if (maxCapacity <= 1 || maxCapacity > 20)
+                throw new ArgumentOutOfRangeException(nameof(maxCapacity), "Max ammo capacity must be between 1 and 20.");
 
-            if (spare <= 0 || spare > 50)
-                throw new ArgumentOutOfRangeException(nameof(spare), "Spare ammo must be between 0 and 50");
+            if (spareRounds <= 0 || spareRounds > 50)
+                throw new ArgumentOutOfRangeException(nameof(spareRounds), "Spare ammo must be between 0 and 50");
 
-            Base = @base;
-            Max = max;
-            Spare = spare;
+            DefaultCapacity = defaultCapacity;
+            MaxCapacity = maxCapacity;
+            SpareRounds = spareRounds;
         }
 
 
-        public int Base { get; set; }
+        public int DefaultCapacity { get; set; }
 
-        public int Max { get; set; }
+        public int MaxCapacity { get; set; }
 
-        public int Spare { get; set; }
+        public int SpareRounds { get; set; }
+
+        public int TopOffAmount { get { return this.MaxCapacity - this.DefaultCapacity; } }
+
+
+        public override string ToString()
+        {
+            return TopOffAmount > 0 ? $"{DefaultCapacity}/{TopOffAmount}/{SpareRounds}" : $"{MaxCapacity}/{SpareRounds}";
+        }
     }
 }

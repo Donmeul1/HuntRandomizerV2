@@ -5,8 +5,11 @@ namespace HuntRandomizer.Models
     public class AmmoOption
     {
         protected AmmoOption() { } 
-        public AmmoOption(AmmoAvailability availability, Weapon weapon, AmmoType ammoType, WeaponStatsOverride? statsOverride)
+        public AmmoOption(AmmoAvailability availability, Weapon weapon, AmmoType ammoType, WeaponStatsOverride? statsOverride = null)
         {
+            ArgumentNullException.ThrowIfNull(weapon);
+            ArgumentNullException.ThrowIfNull(ammoType);
+
             Availability = availability;
             Weapon = weapon;
             AmmoType = ammoType;
@@ -17,7 +20,7 @@ namespace HuntRandomizer.Models
 
         public AmmoAvailability Availability { get; protected set; }
 
-        public WeaponStatsOverride? StatsOverride { get; protected set; } = null!;
+        public WeaponStatsOverride? StatsOverride { get; protected set; }
 
 
         public int WeaponId { get; protected set; }
