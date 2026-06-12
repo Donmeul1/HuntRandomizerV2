@@ -42,7 +42,6 @@ namespace HuntRandomizer.Models
 
         public ItemType Type { get; protected set; }
 
-
         #region Audit fields
 
         public bool Deleted { get; internal set; }
@@ -71,15 +70,15 @@ namespace HuntRandomizer.Models
             if (clearDeletedAt) { this.DeletedAt = null; }
         }
 
-        public void ValidateConstruction(ItemInfo info, MeleeInfo meleeInfo)
+        protected static void ValidateConstruction(ItemInfo info, MeleeInfo meleeInfo)
         {
             ArgumentNullException.ThrowIfNull(info);
             ArgumentNullException.ThrowIfNull(meleeInfo);
 
-            if (String.IsNullOrEmpty(info.Name))
+            if (String.IsNullOrWhiteSpace(info.Name))
                 throw new ArgumentException("Name cannot be empty.", nameof(info));
 
-            if (String.IsNullOrEmpty(info.Description))
+            if (String.IsNullOrWhiteSpace(info.Description))
                 throw new ArgumentException("Description cannot be empty.", nameof(info));
                 
             if (info.Cost < 0 || info.Cost > 1250)

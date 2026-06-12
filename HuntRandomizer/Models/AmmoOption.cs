@@ -1,37 +1,42 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using HuntRandomizer.Models.Records;
 
 namespace HuntRandomizer.Models
 {
     public class AmmoOption
     {
         protected AmmoOption() { } 
-        public AmmoOption(AmmoScarcity scarcity, Weapon weapon, AmmoType ammoType)
+        public AmmoOption(AmmoAvailability availability, Weapon weapon, AmmoType ammoType, WeaponStatsOverride? statsOverride)
         {
-            Scarcity = scarcity;
+            Availability = availability;
             Weapon = weapon;
-            WeaponId = weapon.Id;
             AmmoType = ammoType;
-            AmmoTypeId = ammoType.Id;
+            StatsOverride = statsOverride;
         }
 
         public int Id { get; protected set; }
 
-        public AmmoScarcity Scarcity { get; protected set; }
+        public AmmoAvailability Availability { get; protected set; }
+
+        public WeaponStatsOverride? StatsOverride { get; protected set; } = null!;
 
 
-        [ForeignKey(nameof(WeaponId))]
         public int WeaponId { get; protected set; }
         public Weapon Weapon { get; protected set; } = null!;
 
 
-        [ForeignKey(nameof(AmmoTypeId))]
         public int AmmoTypeId { get; protected set; }
         public AmmoType AmmoType { get; protected set; } = null!;
+        
+        public WeaponStats GetEffectiveStats()
+        {
+            return Weapon.Stats.ApplyOverride(StatsOverride);
+        }
     }
 
-    public enum AmmoScarcity : byte
+    public enum AmmoAvailability : byte
     {
         Default = 1,
-        Scarce = 2
+        Buyable = 2,
+        Scarce = 3
     }
 }
