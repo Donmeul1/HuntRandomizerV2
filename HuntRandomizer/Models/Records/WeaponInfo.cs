@@ -2,14 +2,23 @@
 {
     public sealed record WeaponInfo
     {
-        protected WeaponInfo() { }
-        public WeaponInfo(AmmoCapacity ammoCapacity)
+        public WeaponInfo(WeaponStats weaponStats, SlotSize slotSize, AmmoClass ammoClass, AmmoCapacity ammoCapacity)
         {
-            ArgumentNullException.ThrowIfNullOrEmpty(nameof(ammoCapacity));
+            ArgumentNullException.ThrowIfNull(weaponStats);
+            ArgumentNullException.ThrowIfNull(ammoCapacity);
 
+            Stats = weaponStats;
+            SlotSize = slotSize;
+            AmmoClass = ammoClass;
             Capacity = ammoCapacity;
         }
 
-        public AmmoCapacity Capacity { get; set; }
+        public WeaponStats Stats { get; init; }
+        
+        public SlotSize SlotSize { get; init; }
+
+        public AmmoClass AmmoClass { get; init; }
+
+        public AmmoCapacity Capacity { get; init; }
     }
 }
