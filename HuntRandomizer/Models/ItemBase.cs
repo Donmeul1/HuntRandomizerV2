@@ -8,7 +8,7 @@ namespace HuntRandomizer.Models
         protected ItemBase() { }
         protected ItemBase(ItemInfo info, MeleeInfo meleeInfo, ItemType type, StaminaCost? staminaInfo = null)
         {
-            ValidateConstruction(info); 
+            ValidateConstruction(info, meleeInfo); 
 
             Name = info.Name;
             Description = info.Description;    
@@ -18,11 +18,7 @@ namespace HuntRandomizer.Models
             MeleeDamageLightType = meleeInfo.MeleeTypeLight;
             MeleeDamageHeavyType = meleeInfo.MeleeTypeHeavy;
             Type = type;
-
-            if(staminaInfo != null)
-            {
-                this.StaminaCost = staminaInfo;
-            }
+            StaminaCost = staminaInfo;
         }
 
         public int Id { get; protected set; }
@@ -73,10 +69,13 @@ namespace HuntRandomizer.Models
         {
             this.Deleted = false;
             if (clearDeletedAt) { this.DeletedAt = null; }
-        } 
+        }
 
-        public void ValidateConstruction(ItemInfo info)
+        public void ValidateConstruction(ItemInfo info, MeleeInfo meleeInfo)
         {
+            ArgumentNullException.ThrowIfNull(info);
+            ArgumentNullException.ThrowIfNull(meleeInfo);
+
             if (String.IsNullOrEmpty(info.Name))
                 throw new ArgumentException("Name cannot be empty.", nameof(info.Name));
 

@@ -1,5 +1,4 @@
 ﻿using HuntRandomizer.Models.Records;
-using System.ComponentModel.DataAnnotations;
 
 namespace HuntRandomizer.Models
 {
@@ -12,7 +11,7 @@ namespace HuntRandomizer.Models
         {
 
         }
-
+        
         public SlotSize SlotSize { get; set; }
     }
 
