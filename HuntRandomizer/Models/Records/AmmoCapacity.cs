@@ -3,27 +3,27 @@
     public sealed record AmmoCapacity
     {
         protected AmmoCapacity() { }
-        public AmmoCapacity(int ammoCapacityBase, int ammoCapacityMax, int ammoCapacitySpare)
+        public AmmoCapacity(int @base, int max, int spare)
         {
-            if (ammoCapacityBase <= 0 || ammoCapacityBase > 20)
-                throw new ArgumentOutOfRangeException(nameof(ammoCapacityBase), "Base ammo capacity must be between 0 and 20.");
+            if (@base <= 0 || @base > 20)
+                throw new ArgumentOutOfRangeException(nameof(@base), "Base ammo capacity must be between 0 and 20.");
 
-            if (ammoCapacityMax <= 0 || ammoCapacityMax > 20)
-                throw new ArgumentOutOfRangeException(nameof(ammoCapacityMax), "Max ammo capacity must be between 0 and 20.");
+            if (max <= 0 || max > 20)
+                throw new ArgumentOutOfRangeException(nameof(max), "Max ammo capacity must be between 0 and 20.");
 
-            if (ammoCapacitySpare <= 0 || ammoCapacitySpare > 50)
-                throw new ArgumentOutOfRangeException(nameof(ammoCapacitySpare), "Spare ammo must be between 0 and 50");
+            if (spare <= 0 || spare > 50)
+                throw new ArgumentOutOfRangeException(nameof(spare), "Spare ammo must be between 0 and 50");
 
-            AmmoCapacityBase = ammoCapacityBase;
-            AmmoCapacityMax = ammoCapacityMax;
-            AmmoCapacitySpare = ammoCapacitySpare;
+            Base = @base;
+            Max = max;
+            Spare = spare;
         }
 
 
-        public int AmmoCapacityBase { get; set; }
+        public int Base { get; set; }
 
-        public int AmmoCapacityMax { get; set; }
+        public int Max { get; set; }
 
-        public int AmmoCapacitySpare { get; set; }
+        public int Spare { get; set; }
     }
 }
