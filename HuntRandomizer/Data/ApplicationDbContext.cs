@@ -106,6 +106,7 @@ namespace HuntRandomizer.Data
             return await base.SaveChangesAsync(cancellationToken);
         }
 
+        /* This code is never reached, will remain here when it's time to implement auditing. */
         private void ApplyAuditData()
         {
             var now = DateTime.UtcNow;
