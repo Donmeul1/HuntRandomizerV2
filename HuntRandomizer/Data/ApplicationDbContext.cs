@@ -15,7 +15,7 @@ namespace HuntRandomizer.Data
 
         public DbSet<WeaponFamily> WeaponFamilies { get; set; }
 
-        public DbSet<SpecialAmmunition> SpecialAmmunitions { get; set; }
+        public DbSet<AmmoType> SpecialAmmunitions { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

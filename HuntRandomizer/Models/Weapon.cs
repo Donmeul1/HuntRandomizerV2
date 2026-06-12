@@ -14,7 +14,7 @@ namespace HuntRandomizer.Models
         
         public SlotSize SlotSize { get; protected set; }
 
-        public int SpareRounds { get; protected set; }
+
     }
 
     public enum SlotSize : byte
@@ -24,5 +24,13 @@ namespace HuntRandomizer.Models
         Size3 = 3,
         Size4 = 4,
         Size5 = 5
+    }
+
+    public enum AmmoClass : byte
+    {
+        Compact = 1,
+        Medium = 2,
+        Long = 3,
+        SpecialLong = 4
     }
 }
