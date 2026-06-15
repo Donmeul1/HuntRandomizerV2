@@ -13,6 +13,7 @@ namespace HuntRandomizer.Models
             Name = info.Name;
             Description = info.Description;    
             Cost = info.Cost;
+            BloodlineUlockLevel = info.BloodlineUnlockLevel;
             MeleeDamageLight = meleeInfo.MeleeDamageLight;
             MeleeDamageHeavy = meleeInfo.MeleeDamageHeavy;
             MeleeDamageLightType = meleeInfo.MeleeTypeLight;
@@ -41,6 +42,8 @@ namespace HuntRandomizer.Models
         public StaminaCost? StaminaCost { get; protected set; }
 
         public ItemType Type { get; protected set; }
+
+        public byte BloodlineUlockLevel { get; set; } = 0;
 
         #region Audit fields
 
