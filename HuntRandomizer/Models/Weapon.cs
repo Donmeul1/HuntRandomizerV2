@@ -7,16 +7,17 @@ namespace HuntRandomizer.Models
     {
         protected Weapon() { AmmoOptions = new List<AmmoOption>(); }
 
-        public Weapon(WeaponInfo weaponInfo, ItemInfo itemInfo, MeleeInfo meleeInfo, StaminaCost? staminaInfo) 
+        public Weapon(WeaponInfo weaponInfo, WeaponFamily weaponFamily, ItemInfo itemInfo, MeleeInfo meleeInfo, StaminaCost? staminaInfo) 
             : base(itemInfo, meleeInfo, ItemType.Weapon, staminaInfo)
         {
             ArgumentNullException.ThrowIfNull(weaponInfo, nameof(weaponInfo));
+            ArgumentNullException.ThrowIfNull(weaponFamily, nameof(weaponFamily));
 
             Stats = weaponInfo.Stats;
             SlotSize = weaponInfo.SlotSize;
             AmmoClass = weaponInfo.AmmoClass;
             AmmoCapacity = weaponInfo.Capacity;
-            WeaponFamily = weaponInfo.WeaponFamily;
+            WeaponFamily = weaponFamily;
 
             AmmoOptions = new List<AmmoOption>();
         }
@@ -38,7 +39,7 @@ namespace HuntRandomizer.Models
         {
             ArgumentNullException.ThrowIfNull(ammoType);
 
-            if (AmmoOptions.Any(option => option.AmmoType == ammoType))
+            if (AmmoOptions.Any(option => option.AmmoType.Id == ammoType.Id))
                 throw new InvalidOperationException($"{Name} already has {ammoType.Name} as custom ammo.");
 
             AmmoOptions.Add(new AmmoOption(availability, this, ammoType, statsOverride));
