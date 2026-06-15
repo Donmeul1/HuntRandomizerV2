@@ -7,11 +7,11 @@ namespace HuntRandomizer.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext<RegisteredUser>(options)
     {
-        //public DbSet<Tool> Tools { get; set; }
+        public DbSet<Tool> Tools { get; set; }
 
         public DbSet<Weapon> Weapons { get; set; }
 
-        //public DbSet<Consumable> Consumables { get; set; }
+        public DbSet<Consumable> Consumables { get; set; }
 
         public DbSet<WeaponFamily> WeaponFamilies { get; set; }
 

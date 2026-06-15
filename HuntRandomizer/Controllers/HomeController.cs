@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using HuntRandomizer.Models.ViewModels;
+using HuntRandomizer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HuntRandomizer.Controllers
