@@ -39,6 +39,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Action</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,12 +49,20 @@
                                     <td>@family.Id</td>
                                     <td>@family.Name</td>
                                     <td>@family.Description</td>
-                                    <td>
-                                        <a class="btn btn-primary" asp-action="ListByFamily" asp-controller="WeaponsController" asp-route-weaponFamilyId="@family.Id" />
+                                    <td colspan="2">
+                                        <a class="btn btn-outline-primary" asp-action="Details" asp-controller="WeaponFamilies" asp-route-weaponFamilyId="@family.Id">Details</a>
+                                        <a class="btn btn-outline-info" asp-action="ListByFamily" asp-controller="Weapons" asp-route-weaponFamilyId="@family.Id">See weapons</a>
                                     </td>
                                 </tr>
                             }
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" class="justify-content-center">
+                                    <a asp-action="Create" asp-controller="WeaponFamilies" class="btn btn-primary">Add new</a>
+                                </td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

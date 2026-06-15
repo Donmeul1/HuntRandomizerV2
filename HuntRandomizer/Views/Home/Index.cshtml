@@ -2,7 +2,51 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container" id="InnerContainer">
+    <div class="row">
+        <div class="col-12">
+            <h1>hunt: Showdown 1896 loadout randomizer</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p>
+                This web app allows for users to randomize their Hunt: Showdown loadouts. The app allows for detailed settings that customize how you randomize, like: slot limits, custom ammo, bloodline
+                rank considerations, max cost, etc.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card bg-danger">
+                <div class="card-header">
+                    Warning
+                </div>
+                <div class="card-body">
+                    <p>This application is still under construction and does not accurately represent the finished product.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <h2>Website management section (in progress)</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Weapon families</h3>
+                </div>
+                <div class="card-body">
+                    <p>
+                        This section allows to add, see, or remove weapon families. Every weapon belongs to a family. 
+                    </p>
+                    <a asp-action="Index" asp-controller="WeaponFamilies" class="btn btn-info">Weapon families</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
