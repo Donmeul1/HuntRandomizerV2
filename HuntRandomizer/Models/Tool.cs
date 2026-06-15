@@ -4,6 +4,7 @@ namespace HuntRandomizer.Models
 {
     public class Tool : ItemBase
     {
+        protected Tool() { } //EntityFramework compliant constructor.
         public Tool(ToolInfo toolInfo, ItemInfo info, MeleeInfo meleeInfo, StaminaCost? staminaInfo = null) 
             : base(info, meleeInfo, ItemType.Tool, staminaInfo)
         {
