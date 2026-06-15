@@ -5,7 +5,7 @@ namespace HuntRandomizer.Models
 {
     public class Consumable : ItemBase
     {
-        protected Consumable() { }
+        protected Consumable() {  } //EntityFramework compliant constructor. 
 
         public Consumable(ConsumableInfo consumableInfo, ItemInfo info, MeleeInfo meleeInfo, StaminaCost? staminaInfo) 
             : base(info, meleeInfo, ItemType.Consumable, staminaInfo)
