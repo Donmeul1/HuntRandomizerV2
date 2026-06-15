@@ -154,6 +154,9 @@ namespace HuntRandomizer.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
 
+                    b.Property<byte>("BloodlineUnlockLevel")
+                        .HasColumnType("tinyint");
+
                     b.Property<DateTime?>("ChangedAt")
                         .HasColumnType("datetime2");
 
@@ -360,6 +363,56 @@ namespace HuntRandomizer.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("HuntRandomizer.Models.Consumable", b =>
+                {
+                    b.HasBaseType("HuntRandomizer.Models.ItemBase");
+
+                    b.Property<bool>("CausesDamage")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("EffectDuration")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EffectRadius")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FuseTimer")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HasEffect")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ThrowRange")
+                        .HasColumnType("int");
+
+                    b.ToTable("Consumables");
+                });
+
+            modelBuilder.Entity("HuntRandomizer.Models.Tool", b =>
+                {
+                    b.HasBaseType("HuntRandomizer.Models.ItemBase");
+
+                    b.Property<int>("Charges")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Damage")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DropRange")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MuzzleVelocity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Spread")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ThrowRange")
+                        .HasColumnType("int");
+
+                    b.ToTable("Tools");
+                });
+
             modelBuilder.Entity("HuntRandomizer.Models.Weapon", b =>
                 {
                     b.HasBaseType("HuntRandomizer.Models.ItemBase");
@@ -499,6 +552,58 @@ namespace HuntRandomizer.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HuntRandomizer.Models.Consumable", b =>
+                {
+                    b.OwnsOne("HuntRandomizer.Models.Records.StaminaCost", "StaminaCost", b1 =>
+                        {
+                            b1.Property<int>("ConsumableId")
+                                .HasColumnType("int");
+
+                            b1.Property<int?>("StaminaCostHeavy")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostHeavy");
+
+                            b1.Property<int?>("StaminaCostLight")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostLight");
+
+                            b1.HasKey("ConsumableId");
+
+                            b1.ToTable("Consumables");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ConsumableId");
+                        });
+
+                    b.Navigation("StaminaCost");
+                });
+
+            modelBuilder.Entity("HuntRandomizer.Models.Tool", b =>
+                {
+                    b.OwnsOne("HuntRandomizer.Models.Records.StaminaCost", "StaminaCost", b1 =>
+                        {
+                            b1.Property<int>("ToolId")
+                                .HasColumnType("int");
+
+                            b1.Property<int?>("StaminaCostHeavy")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostHeavy");
+
+                            b1.Property<int?>("StaminaCostLight")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostLight");
+
+                            b1.HasKey("ToolId");
+
+                            b1.ToTable("Tools");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ToolId");
+                        });
+
+                    b.Navigation("StaminaCost");
+                });
+
             modelBuilder.Entity("HuntRandomizer.Models.Weapon", b =>
                 {
                     b.HasOne("HuntRandomizer.Models.WeaponFamily", "WeaponFamily")
@@ -523,27 +628,6 @@ namespace HuntRandomizer.Data.Migrations
                             b1.Property<int>("SpareRounds")
                                 .HasColumnType("int")
                                 .HasColumnName("SpareRounds");
-
-                            b1.HasKey("WeaponId");
-
-                            b1.ToTable("Weapons");
-
-                            b1.WithOwner()
-                                .HasForeignKey("WeaponId");
-                        });
-
-                    b.OwnsOne("HuntRandomizer.Models.Records.StaminaCost", "StaminaCost", b1 =>
-                        {
-                            b1.Property<int>("WeaponId")
-                                .HasColumnType("int");
-
-                            b1.Property<int?>("StaminaCostHeavy")
-                                .HasColumnType("int")
-                                .HasColumnName("StaminaCostHeavy");
-
-                            b1.Property<int?>("StaminaCostLight")
-                                .HasColumnType("int")
-                                .HasColumnName("StaminaCostLight");
 
                             b1.HasKey("WeaponId");
 
@@ -593,6 +677,27 @@ namespace HuntRandomizer.Data.Migrations
                             b1.Property<float>("Sway")
                                 .HasColumnType("real")
                                 .HasColumnName("Sway");
+
+                            b1.HasKey("WeaponId");
+
+                            b1.ToTable("Weapons");
+
+                            b1.WithOwner()
+                                .HasForeignKey("WeaponId");
+                        });
+
+                    b.OwnsOne("HuntRandomizer.Models.Records.StaminaCost", "StaminaCost", b1 =>
+                        {
+                            b1.Property<int>("WeaponId")
+                                .HasColumnType("int");
+
+                            b1.Property<int?>("StaminaCostHeavy")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostHeavy");
+
+                            b1.Property<int?>("StaminaCostLight")
+                                .HasColumnType("int")
+                                .HasColumnName("StaminaCostLight");
 
                             b1.HasKey("WeaponId");
 

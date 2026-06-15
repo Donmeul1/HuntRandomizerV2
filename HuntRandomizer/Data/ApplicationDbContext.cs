@@ -61,6 +61,24 @@ namespace HuntRandomizer.Data
 
             });
 
+            modelBuilder.Entity<Tool>(tool =>
+            {
+                tool.OwnsOne(x => x.StaminaCost, stamina =>
+                {
+                    stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
+                    stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
+                });
+            });
+
+            modelBuilder.Entity<Consumable>(consumable =>
+            {
+                consumable.OwnsOne(x => x.StaminaCost, stamina =>
+                {
+                    stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
+                    stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
+                });
+            });
+
             modelBuilder.Entity<AmmoOption>(ammoOption =>
             {
                 ammoOption.HasOne(r => r.Weapon)
