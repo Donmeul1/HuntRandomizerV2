@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using HuntRandomizer.Data;
 using HuntRandomizer.Models;
+using HuntRandomizer.ViewModels.Weapons;
 
 namespace HuntRandomizer.Controllers
 {
@@ -15,10 +16,10 @@ namespace HuntRandomizer.Controllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<Weapon> Weapons = _context.Weapons.ToList<Weapon>();
-            return View(Weapons);
+            return View(new WeaponIndexViewModel(Weapons));
         }
     }
 }

@@ -60,6 +60,9 @@ namespace HuntRandomizer.Models
         Compact = 1,
         Medium = 2,
         Long = 3,
-        SpecialLong = 4
+        SpecialLong = 4,
+        Arrow = 5,
+        Bolt = 6,
+        Harpoon = 7
     }
 }
