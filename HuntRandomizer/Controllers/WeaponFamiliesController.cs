@@ -19,13 +19,13 @@ namespace HuntRandomizer.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var weaponFamilies = await _context.WeaponFamilies.OrderBy(wf => wf.Name).ToListAsync();
+            var weaponFamilies = await _context.WeaponFamilies.OrderBy(wf => wf.Id).ToListAsync();
 
             var viewModel = new ListWeaponFamiliesViewModel(weaponFamilies);
 
             return View(viewModel);
         }
-
+          
         [HttpGet]
         public IActionResult Create()
         {
