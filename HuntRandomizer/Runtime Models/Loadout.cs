@@ -13,34 +13,54 @@ namespace HuntRandomizer.Runtime_Models
 
         public Loadout(Weapon? primaryWeapon = null, Weapon? secondaryWeapon = null, List<Tool>? tools = null, List<Consumable>? consumables = null, bool hasQuartermaster = false)
         {
-            this.PrimaryWeapon = primaryWeapon;
-            this.SecondaryWeapon = secondaryWeapon;
             this._tools = tools?.ToList() ?? [];
             this._consumables = consumables?.ToList() ?? [];
+            this.HasQuartermaster = hasQuartermaster;
 
-            if(PrimaryWeapon != null && SecondaryWeapon != null)
-            {
-                int allowedSize = hasQuartermaster ? 6 : 5;
-                if (((int)PrimaryWeapon.SlotSize + (int)SecondaryWeapon.SlotSize) > allowedSize)
-                {
-                    throw new ArgumentOutOfRangeException($"Total slot size can't be more than {allowedSize}");
-                }
-            }
+            this.SetWeapons(primaryWeapon, secondaryWeapon);
             
-
             if (_tools.Count > MaxEquipItems) throw new ArgumentOutOfRangeException(nameof(tools), "Tools can't be more than 4.");
             if (_consumables.Count > MaxEquipItems) throw new ArgumentOutOfRangeException(nameof(consumables), "Consumables can't be more than 4.");
         }
 
-        public Weapon? PrimaryWeapon { get; set; }
-        public Weapon? SecondaryWeapon { get; set; }
+        public Weapon? PrimaryWeapon { get; private set; }
+        public Weapon? SecondaryWeapon { get; private set; }
 
         public IReadOnlyList<Tool> Tools => _tools.AsReadOnly();
         public IReadOnlyList<Consumable> Consumables => _consumables.AsReadOnly();
 
+        public int TotalLoadoutCost => GetTotalCost();
+
         public bool HasQuartermaster { get; set; }
 
+        private int GetTotalCost()
+        {
+            int totalCost = 0;
+
+            totalCost += PrimaryWeapon?.Cost ?? 0;
+            totalCost += SecondaryWeapon?.Cost ?? 0;
+
+            foreach (var item in _tools)
+                totalCost += item?.Cost ?? 0;
+
+            foreach (var item in _consumables)
+                totalCost += item?.Cost ?? 0;
+
+            return totalCost;
+        }
+
         //control methods
+        public void SetWeapons(Weapon? primary, Weapon? secondary)
+        {
+            int maxSlotSize = this.HasQuartermaster ? 6 : 5;
+            int totalSize = ((int?)primary?.SlotSize ?? 0) + ((int?)secondary?.SlotSize ?? 0);
+
+            if (totalSize > maxSlotSize) throw new InvalidOperationException("Slot size exceed maximum.");
+
+            this.PrimaryWeapon = primary;
+            this.SecondaryWeapon = secondary;
+        }
+
         public void AddTool(Tool tool)
         {
             if (_tools.Count >= MaxEquipItems) throw new InvalidOperationException("Can't have more than 4 tools.");
@@ -59,7 +79,7 @@ namespace HuntRandomizer.Runtime_Models
 
         public void AddConsumable(Consumable consumable)
         {
-            if (_consumables.Count() >= 4) throw new InvalidOperationException("Can't have more than 4 consumables.");
+            if (_consumables.Count() >= MaxEquipItems) throw new InvalidOperationException("Can't have more than 4 consumables.");
             _consumables.Add(consumable);
         }
 
@@ -72,7 +92,6 @@ namespace HuntRandomizer.Runtime_Models
         {
             _consumables[index] = consumable;
         }
-
 
         //Calculated properties.
         public int WeaponSlotsUsed => ((int?)PrimaryWeapon?.SlotSize ?? 0) + ((int?)SecondaryWeapon?.SlotSize ?? 0);
