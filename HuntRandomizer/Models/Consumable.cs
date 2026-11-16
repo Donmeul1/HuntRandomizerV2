@@ -7,7 +7,7 @@ namespace HuntRandomizer.Models
     {
         protected Consumable() {  } //EntityFramework compliant constructor. 
 
-        public Consumable(ConsumableInfo consumableInfo, ItemInfo info, MeleeInfo meleeInfo, StaminaCost? staminaInfo) 
+        public Consumable(ConsumableInfo consumableInfo, ItemInfo info, MeleeInfo meleeInfo, StaminaCost staminaInfo) 
             : base(info, meleeInfo, ItemType.Consumable, staminaInfo)
         {
             ArgumentNullException.ThrowIfNull(consumableInfo, nameof(consumableInfo));

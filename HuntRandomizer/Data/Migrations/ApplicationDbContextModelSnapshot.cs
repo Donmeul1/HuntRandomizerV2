@@ -17,7 +17,7 @@ namespace HuntRandomizer.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.2")
+                .HasAnnotation("ProductVersion", "10.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -65,9 +65,12 @@ namespace HuntRandomizer.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("AmmoTypes");
                 });
@@ -193,7 +196,7 @@ namespace HuntRandomizer.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<byte>("Type")
                         .HasColumnType("tinyint");
@@ -219,9 +222,12 @@ namespace HuntRandomizer.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("WeaponFamilies");
                 });
@@ -426,6 +432,9 @@ namespace HuntRandomizer.Data.Migrations
                     b.Property<int>("WeaponFamilyId")
                         .HasColumnType("int");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.HasIndex("WeaponFamilyId");
 
                     b.ToTable("Weapons");
@@ -436,7 +445,7 @@ namespace HuntRandomizer.Data.Migrations
                     b.HasOne("HuntRandomizer.Models.AmmoType", "AmmoType")
                         .WithMany()
                         .HasForeignKey("AmmoTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("HuntRandomizer.Models.Weapon", "Weapon")
@@ -559,11 +568,11 @@ namespace HuntRandomizer.Data.Migrations
                             b1.Property<int>("ConsumableId")
                                 .HasColumnType("int");
 
-                            b1.Property<int?>("StaminaCostHeavy")
+                            b1.Property<int>("StaminaCostHeavy")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostHeavy");
 
-                            b1.Property<int?>("StaminaCostLight")
+                            b1.Property<int>("StaminaCostLight")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostLight");
 
@@ -575,7 +584,8 @@ namespace HuntRandomizer.Data.Migrations
                                 .HasForeignKey("ConsumableId");
                         });
 
-                    b.Navigation("StaminaCost");
+                    b.Navigation("StaminaCost")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HuntRandomizer.Models.Tool", b =>
@@ -585,11 +595,11 @@ namespace HuntRandomizer.Data.Migrations
                             b1.Property<int>("ToolId")
                                 .HasColumnType("int");
 
-                            b1.Property<int?>("StaminaCostHeavy")
+                            b1.Property<int>("StaminaCostHeavy")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostHeavy");
 
-                            b1.Property<int?>("StaminaCostLight")
+                            b1.Property<int>("StaminaCostLight")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostLight");
 
@@ -601,7 +611,8 @@ namespace HuntRandomizer.Data.Migrations
                                 .HasForeignKey("ToolId");
                         });
 
-                    b.Navigation("StaminaCost");
+                    b.Navigation("StaminaCost")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HuntRandomizer.Models.Weapon", b =>
@@ -609,7 +620,7 @@ namespace HuntRandomizer.Data.Migrations
                     b.HasOne("HuntRandomizer.Models.WeaponFamily", "WeaponFamily")
                         .WithMany("WeaponsInFamily")
                         .HasForeignKey("WeaponFamilyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.OwnsOne("HuntRandomizer.Models.Records.AmmoCapacity", "AmmoCapacity", b1 =>
@@ -691,11 +702,11 @@ namespace HuntRandomizer.Data.Migrations
                             b1.Property<int>("WeaponId")
                                 .HasColumnType("int");
 
-                            b1.Property<int?>("StaminaCostHeavy")
+                            b1.Property<int>("StaminaCostHeavy")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostHeavy");
 
-                            b1.Property<int?>("StaminaCostLight")
+                            b1.Property<int>("StaminaCostLight")
                                 .HasColumnType("int")
                                 .HasColumnName("StaminaCostLight");
 
@@ -710,7 +721,8 @@ namespace HuntRandomizer.Data.Migrations
                     b.Navigation("AmmoCapacity")
                         .IsRequired();
 
-                    b.Navigation("StaminaCost");
+                    b.Navigation("StaminaCost")
+                        .IsRequired();
 
                     b.Navigation("Stats")
                         .IsRequired();

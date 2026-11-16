@@ -31,7 +31,9 @@ namespace HuntRandomizer.Data
                 weapon.HasOne(r => r.WeaponFamily)
                     .WithMany(r => r.WeaponsInFamily)
                     .HasForeignKey(k => k.WeaponFamilyId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                weapon.HasIndex(w => w.Name).IsUnique();
 
                 weapon.OwnsOne(x => x.StaminaCost, stamina =>
                 {
@@ -59,6 +61,12 @@ namespace HuntRandomizer.Data
                     capacity.Property(p => p.SpareRounds).HasColumnName("SpareRounds");
                 });
 
+                weapon.Navigation(w => w.StaminaCost).IsRequired();
+            });
+
+            modelBuilder.Entity<WeaponFamily>(weaponFamily =>
+            {
+                weaponFamily.HasIndex(wf => wf.Name).IsUnique();
             });
 
             modelBuilder.Entity<Tool>(tool =>
@@ -68,6 +76,10 @@ namespace HuntRandomizer.Data
                     stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
                     stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
                 });
+
+                tool.HasIndex(t => t.Name).IsUnique();
+
+                tool.Navigation(t => t.StaminaCost).IsRequired();
             });
 
             modelBuilder.Entity<Consumable>(consumable =>
@@ -77,6 +89,15 @@ namespace HuntRandomizer.Data
                     stamina.Property(p => p.StaminaCostLight).HasColumnName("StaminaCostLight");
                     stamina.Property(p => p.StaminaCostHeavy).HasColumnName("StaminaCostHeavy");
                 });
+
+                consumable.HasIndex(c => c.Name).IsUnique();
+
+                consumable.Navigation(c => c.StaminaCost).IsRequired();
+            });
+
+            modelBuilder.Entity<AmmoType>(ammoType =>
+            {
+                ammoType.HasIndex(at => at.Name).IsUnique();
             });
 
             modelBuilder.Entity<AmmoOption>(ammoOption =>
@@ -89,7 +110,7 @@ namespace HuntRandomizer.Data
                 ammoOption.HasOne(r => r.AmmoType)
                     .WithMany()
                     .HasForeignKey(k => k.AmmoTypeId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                    .OnDelete(DeleteBehavior.Restrict);
 
                 ammoOption.HasIndex(i => new { i.WeaponId, i.AmmoTypeId }).IsUnique();
 

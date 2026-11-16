@@ -4,7 +4,7 @@ namespace HuntRandomizer.Models
 {
     public class AmmoOption
     {
-        protected AmmoOption() { } 
+        protected AmmoOption() { } //EF Compliant constructor.
         public AmmoOption(AmmoAvailability availability, Weapon weapon, AmmoType ammoType, WeaponStatsOverride? statsOverride = null)
         {
             ArgumentNullException.ThrowIfNull(weapon);

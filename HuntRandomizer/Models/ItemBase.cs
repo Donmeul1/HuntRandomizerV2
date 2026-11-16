@@ -1,14 +1,13 @@
 ﻿using HuntRandomizer.Models.Records;
-using System.ComponentModel.DataAnnotations;
 
 namespace HuntRandomizer.Models
 {
     public abstract class ItemBase
     {
-        protected ItemBase() { }
-        protected ItemBase(ItemInfo info, MeleeInfo meleeInfo, ItemType type, StaminaCost? staminaInfo = null)
+        protected ItemBase() { } //EF Compliant consturctor.
+        protected ItemBase(ItemInfo info, MeleeInfo meleeInfo, ItemType type, StaminaCost staminaInfo)
         {
-            ValidateConstruction(info, meleeInfo); 
+            ValidateConstruction(info, meleeInfo, staminaInfo); 
 
             Name = info.Name;
             Description = info.Description;    
@@ -28,7 +27,6 @@ namespace HuntRandomizer.Models
 
         public string Description { get; protected set; } = null!;
 
-        [Range(0, 1250)]
         public int Cost { get; protected set; }
 
         public int MeleeDamageLight { get; protected set; }
@@ -39,7 +37,7 @@ namespace HuntRandomizer.Models
 
         public MeleeType MeleeDamageHeavyType { get; protected set; }
 
-        public StaminaCost? StaminaCost { get; protected set; }
+        public StaminaCost StaminaCost { get; protected set; } = null!;
 
         public ItemType Type { get; protected set; }
 
@@ -73,10 +71,11 @@ namespace HuntRandomizer.Models
             if (clearDeletedAt) { this.DeletedAt = null; }
         }
 
-        protected static void ValidateConstruction(ItemInfo info, MeleeInfo meleeInfo)
+        protected static void ValidateConstruction(ItemInfo info, MeleeInfo meleeInfo, StaminaCost staminaCost)
         {
             ArgumentNullException.ThrowIfNull(info);
             ArgumentNullException.ThrowIfNull(meleeInfo);
+            ArgumentNullException.ThrowIfNull(staminaCost);
 
             if (String.IsNullOrWhiteSpace(info.Name))
                 throw new ArgumentException("Name cannot be empty.", nameof(info));

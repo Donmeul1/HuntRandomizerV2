@@ -52,6 +52,7 @@
                                     <td colspan="2">
                                         <a class="btn btn-outline-primary" asp-action="Details" asp-controller="WeaponFamilies" asp-route-weaponFamilyId="@family.Id">Details</a>
                                         <a class="btn btn-outline-info" asp-action="ListByFamily" asp-controller="Weapons" asp-route-weaponFamilyId="@family.Id">See weapons</a>
+                                        <a class="btn btn-danger" asp-action="Delete" asp-controller="WeaponFamilies" asp-route-id="@family.Id">Delete</a>
                                     </td>
                                 </tr>
                             }

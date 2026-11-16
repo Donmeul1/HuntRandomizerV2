@@ -1,0 +1,31 @@
+﻿@model DeleteWeaponFamilyViewModel
+
+<div class="container" id="InnerContainer">
+    <div class="row">
+        <div class="col">
+            <h2>
+                Delete weapon family
+            </h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        Delete: @Model.WeaponFamily.Name
+                    </h3>
+                </div>
+                <div class="card-bdy">
+                    This will delete the weapon family @Model.WeaponFamily.Name. If there are any weapons still associated with this weapon family, it cannot be deleted. 
+                </div>
+                <div class="card-footer">
+                    @if(Model.WeaponFamily.WeaponsInFamily.Count == 0)
+                    {
+                        <a asp-action="delete" asp-controller="WeaponFamilies" asp-route-id="@Model.WeaponFamily.Id" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

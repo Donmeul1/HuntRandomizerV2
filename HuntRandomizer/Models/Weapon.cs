@@ -7,7 +7,7 @@ namespace HuntRandomizer.Models
     {
         protected Weapon() { AmmoOptions = new List<AmmoOption>(); }
 
-        public Weapon(WeaponInfo weaponInfo, WeaponFamily weaponFamily, ItemInfo itemInfo, MeleeInfo meleeInfo, StaminaCost? staminaInfo) 
+        public Weapon(WeaponInfo weaponInfo, WeaponFamily weaponFamily, ItemInfo itemInfo, MeleeInfo meleeInfo, StaminaCost staminaInfo) 
             : base(itemInfo, meleeInfo, ItemType.Weapon, staminaInfo)
         {
             ArgumentNullException.ThrowIfNull(weaponInfo, nameof(weaponInfo));
